@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>敏感词过滤</title>
+        <style>
+            p {
+                width: 200px;
+                height: 300px;
+                border: 1px solid #eee;
+            }
+        </style>
+    </head>
+    <body>
+        <textarea id="area"></textarea>
+        <button id="btn">发布</button>
+        <p id="article"></p>
+    </body>
+    <script>
+        // 逻辑：用户输入的值，如果正则匹配到了，则进行替换
+        // sensities 敏感词数组，替换为**
+        var area = document.getElementById("area");
+        var article = document.getElementById("article");
+        var btn = document.getElementById("btn");
+        var sensities = ['金三胖', '他妈的', '傻逼'];
+        btn.onclick = function () {
+            var rule, str = '';
+            for (var i=0; i<sensities.length; i++) {
+                if (i < sensities.length-1) {
+                    str += sensities[i] + '|'
+                } else {
+                    str += sensities[i]
+                }
+                rule = new RegExp(str, 'g');
+                article.innerText = area.value.replace(rule, '**');
+            }
+        }
+    </script>
+</html>
